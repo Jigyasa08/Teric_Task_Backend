@@ -3,9 +3,9 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 
 const postRegister = async (req, res) => {
-  const emailExists = await User.findOne({ email: req.body.email });
-  if (emailExists) {
-    return res.status(400).json("Email is already registered");
+  const phoneExists = await User.findOne({ phone: req.body.phone });
+  if (phoneExists) {
+    return res.status(400).json({ msg: "Phone Number is already registered" });
   }
 
   const hashedPassword = await bcrypt.hash(
@@ -14,7 +14,7 @@ const postRegister = async (req, res) => {
   );
 
   const user = new User({
-    email: req.body.email,
+    phone: req.body.phone,
     password: hashedPassword,
   });
   try {
@@ -26,16 +26,16 @@ const postRegister = async (req, res) => {
 };
 
 const postLogin = async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ phone: req.body.phone });
   if (!user) {
-    return res.status(400).send("Email is not registered");
+    return res.status(400).send({ msg: "This Phone Number is not registered" });
   }
 
   const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass) {
-    return res.status(400).send("Invalid Password");
+    return res.status(400).send({ msg: "Invalid Password" });
   }
-  res.send("logged in");
+  res.send("User logged in");
 };
 
 module.exports = { postRegister, postLogin };
