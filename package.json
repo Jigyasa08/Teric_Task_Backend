@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server1": "node AuthAPI/server",
+    "server2": "node MovieAPI/server",
+    "start": "concurrently \"npm run server1\" \"npm run server2\" "
   },
   "repository": {
     "type": "git",
@@ -15,6 +18,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^6.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

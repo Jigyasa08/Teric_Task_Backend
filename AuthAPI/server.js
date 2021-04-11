@@ -8,7 +8,7 @@ const router = require("./routes/users");
 const connectDB = require("./config/db");
 connectDB();
 
-app.use("/api/", router);
+app.use("/account/", router);
 
 app.listen(5000, () => {
   console.log("Server is up & running");
