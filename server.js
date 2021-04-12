@@ -9,9 +9,12 @@ app.use(express.json());
 const connectDB = require("./config/db");
 connectDB();
 
+const authRoutes = require("./routes/users");
 const movieRoutes = require("./routes/movies");
 app.use("/", movieRoutes);
+app.use("/account/", authRoutes);
 
-app.listen(8000, () => {
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
   console.log(`The server is up and running.`);
 });

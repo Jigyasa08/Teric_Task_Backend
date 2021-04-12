@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
-const db = require("./data/data");
-const Data = require("./models/User");
-const connectDB = require("./config/db");
+const movieData = require("./data/movieData");
+const userData = require("./data/userData");
 
-//Calling the function to connect to the Database
+const Movie = require("./models/Movie");
+const User = require("./models/User");
+
+const connectDB = require("./config/db");
 connectDB();
 
-//Function to insert data into the cloud after clearing all pre-existing data
 const importData = async () => {
   try {
-    await Data.deleteMany();
-    await Data.insertMany(db);
+    await Movie.deleteMany();
+    await User.deleteMany();
+    await Movie.insertMany(movieData);
+    await User.insertMany(userData);
     console.log("Data imported");
     process.exit();
   } catch (err) {
@@ -18,11 +21,10 @@ const importData = async () => {
     process.exit(1);
   }
 };
-
-//Function to destroy existing data
 const destroyData = async () => {
   try {
-    await Data.deleteMany();
+    await Movie.deleteMany();
+    await User.deleteMany();
     console.log("Data destroyed");
     process.exit();
   } catch (err) {
@@ -31,7 +33,6 @@ const destroyData = async () => {
   }
 };
 
-//In Node.js if 2nd arguement is "-d" then destroy function is called else import function is called
 if (process.argv[2] === "-d") {
   destroyData();
 } else {

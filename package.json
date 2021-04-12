@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server1": "node AuthAPI/server",
-    "server2": "node MovieAPI/server",
-    "start": "concurrently \"npm run server1\" \"npm run server2\" "
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
